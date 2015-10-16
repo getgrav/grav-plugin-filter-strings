@@ -1,0 +1,25 @@
+name: Filter Strings
+version: 1.0.0
+description: The **Filter Strings** plugin performs string manipulation in twig.
+icon: quote-right
+author:
+  name: Vivalldi
+  email: cosgrove.tyler.98@gmail.com
+homepage: https://github.com/Vivalldi/grav-plugin-filterStrings
+keywords: filter, filter-strings, strings, filterstrings, plugin
+bugs: https://github.com/Vivalldi/grav-plugin-filterStrings/issues
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 1
+      options:
+          1: Enabled
+          0: Disabled
+      validate:
+           type: bool
