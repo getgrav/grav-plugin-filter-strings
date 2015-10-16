@@ -1,0 +1,15 @@
+{
+   "project":"grav-plugin-filterStrings",
+   "platforms":{
+      "grav":{
+         "nodes":{
+            "plugin":[
+               {
+                  "source":"/",
+                  "destination":"/user/plugins/filterStrings"
+               }
+            ]
+         }
+      }
+   }
+}
