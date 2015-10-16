@@ -24,7 +24,7 @@ class FilterStringsPlugin extends Plugin
      */
     public function onPluginsInitialized()
     {
-        if ($this->isAdmin() && !$this->config->get('plugins.filterstrings.enabled_in_admin', false) && !$this->config->get('plugins.filterstrings.enabled', false)) {
+        if ($this->isAdmin() && !$this->config->get('plugins.filterstrings.enabled', false)) {
             $this->active = false;
             return;
         }
