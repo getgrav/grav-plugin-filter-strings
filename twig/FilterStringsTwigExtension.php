@@ -28,7 +28,6 @@ class FilterStringsTwigExtension extends \Twig_Extension
     }
     public function stringFilter($action, $data)
     {
-        $a = call_user_func_array('Stingy\Stringy::'.$action, $data);
-        return $action;
+        return S::create($data)->{$action}();
     }
 }
