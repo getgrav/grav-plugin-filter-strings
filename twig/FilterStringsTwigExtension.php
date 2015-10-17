@@ -1,16 +1,10 @@
 <?php
 namespace Grav\Plugin;
 use \Grav\Common\Grav;
-use Stringy\Stringy as S;
-use function Stringy\create as s;
+use Stringy\Stringy as Stringy;
 
 class FilterStringsTwigExtension extends \Twig_Extension
 {
-    protected $config;
-    public function __construct()
-    {
-        $this->config = Grav::instance()['config'];
-    }
     /**
      * Returns extension name.
      *
@@ -28,6 +22,6 @@ class FilterStringsTwigExtension extends \Twig_Extension
     }
     public function stringFilter($action, $data)
     {
-        return S::create($data)->{$action}();
+        return Stringy::create($data)->{$action}();
     }
 }

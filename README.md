@@ -11,17 +11,17 @@
 Utilizing the system terminal the plugin can be installed from root.
 In the system terminal navigate (change directories) to the root of the Grav project. Type in the following command:
 
-    bin/gpm install filterStrings
+    bin/gpm install filter-strings
 
 The command will install the plugin under the `/user/plugins` directory in Grav.
 
 ## Manual Installation
 
-To install this plugin, just download the zip version of this repository and unzip it under `/your/site/grav/user/plugins`. Then, rename the folder to `filterStrings`. You can find these files either on [GitHub](https://github.com/getgrav/grav-plugin-filterStrings) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
+To install this plugin, just download the zip version of this repository and unzip it under `/your/site/grav/user/plugins`. Then, rename the folder to `filter-strings`. You can find these files either on [GitHub](https://github.com/getgrav/grav-plugin-filter-strings) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
 
 You should now have all the plugin files under
 
-    /your/site/grav/user/plugins/filterStrings
+    /your/site/grav/user/plugins/filter-strings
 
 
 # Usage
