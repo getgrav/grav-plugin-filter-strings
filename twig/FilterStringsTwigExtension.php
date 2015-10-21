@@ -22,6 +22,14 @@ class FilterStringsTwigExtension extends \Twig_Extension
     }
     public function stringFilter($action, $data)
     {
-        return Stringy::create($data)->{$action}();
+        if($action==null){return;};
+        $customManipulators = ["cosgrove"];//plans for custom manipulator functions
+        switch(true) {
+            case in_array($action, $customManipulators):
+                //Plans for custom manipulator functions
+                break;
+            default:
+                return Stringy::create($data)->{$action}();
+        }
     }
 }
