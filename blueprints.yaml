@@ -6,9 +6,9 @@ author:
   name: Team Grav
   email: devs@getgrav.org
   url: http://getgrav.org
-homepage: https://github.com/getgrav/grav-plugin-filterStrings
+homepage: https://github.com/getgrav/grav-plugin-filter-strings
 keywords: filter, filter-strings, strings, filterstrings, plugin
-bugs: https://github.com/getgrav/grav-plugin-filterStrings/issues
+bugs: https://github.com/getgrav/grav-plugin-filter-strings/issues
 license: MIT
 
 form:
