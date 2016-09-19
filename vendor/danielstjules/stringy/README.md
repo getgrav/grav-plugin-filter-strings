@@ -1,7 +1,7 @@
 ![Stringy](http://danielstjules.com/github/stringy-logo.png)
 
 A PHP string manipulation library with multibyte support. Compatible with PHP
-5.3+ and HHVM. Refer to the [1.x branch](https://github.com/danielstjules/Stringy/tree/1.x)
+5.3+, PHP 7, and HHVM. Refer to the [1.x branch](https://github.com/danielstjules/Stringy/tree/1.x)
 for older documentation.
 
 ``` php
@@ -9,6 +9,8 @@ s('string')->toTitleCase()->ensureRight('y') == 'Stringy'
 ```
 
 [![Build Status](https://api.travis-ci.org/danielstjules/Stringy.svg?branch=master)](https://travis-ci.org/danielstjules/Stringy)
+[![Total Downloads](https://poser.pugx.org/danielstjules/stringy/downloads)](https://packagist.org/packages/danielstjules/stringy)
+[![License](https://poser.pugx.org/danielstjules/stringy/license)](https://packagist.org/packages/danielstjules/stringy)
 
 * [Why?](#why)
 * [Installation](#installation)
@@ -46,6 +48,7 @@ s('string')->toTitleCase()->ensureRight('y') == 'Stringy'
     * [insert](#insertint-index-string-substring)
     * [isAlpha](#isalpha)
     * [isAlphanumeric](#isalphanumeric)
+    * [isBase64](#isbase64)
     * [isBlank](#isblank)
     * [isHexadecimal](#ishexadecimal)
     * [isJson](#isjson)
@@ -128,7 +131,7 @@ in your composer.json file:
 
 ```json
 "require": {
-    "danielstjules/stringy": "~2.1"
+    "danielstjules/stringy": "~2.3"
 }
 ```
 
@@ -151,11 +154,13 @@ And in either case, I'd suggest using an alias.
 use Stringy\Stringy as S;
 ```
 
-Please note that Stringy relies on the `mbstring` PHP module for its underlying
-multibyte support. This is a non-default, but very common module. For example,
-with debian and ubuntu, it's included in libapache2-mod-php5, php5-cli, and
-php5-fpm. For OSX users, it's a default for any version of PHP installed with
-homebrew. If compiling PHP from scratch, it can be included with the
+Please note that Stringy relies on the `mbstring` module for its underlying
+multibyte support. If the module is not found, Stringy will use
+[symfony/polyfill-mbstring](https://github.com/symfony/polyfill-mbstring).
+ex-mbstring is a non-default, but very common module. For example, with debian
+and ubuntu, it's included in libapache2-mod-php5, php5-cli, and php5-fpm. For
+OSX users, it's a default for any version of PHP installed with homebrew.
+If compiling PHP from scratch, it can be included with the
 `--enable-mbstring` flag.
 
 ## OO and Chaining
@@ -234,9 +239,9 @@ integer, boolean, etc.
 ```php
 use Stringy\StaticStringy as S;
 
-// Translates to Stringy::create('fòôbàř', 'UTF-8')->slice(0, 3);
+// Translates to Stringy::create('fòôbàř')->slice(0, 3);
 // Returns a Stringy object with the string "fòô"
-S::slice('fòôbàř', 0, 3, 'UTF-8');
+S::slice('fòôbàř', 0, 3);
 ```
 
 ## Class methods
@@ -250,7 +255,7 @@ then returns the initialized object. Throws an InvalidArgumentException
 if the first argument is an array or object without a __toString method.
 
 ```php
-$stringy = S::create('fòôbàř', 'UTF-8'); // 'fòôbàř'
+$stringy = S::create('fòôbàř'); // 'fòôbàř'
 ```
 
 ## Instance Methods
@@ -396,7 +401,7 @@ s('foobar')->ensureLeft('http://'); // 'http://foobar'
 
 ##### ensureRight(string $substring)
 
-Ensures that the string begins with $substring. If it doesn't, it's appended.
+Ensures that the string ends with $substring. If it doesn't, it's appended.
 
 ```php
 s('foobar')->ensureRight('.com'); // 'foobar.com'
@@ -415,7 +420,7 @@ s('fòôbàř')->first(3); // 'fòô'
 Returns the encoding used by the Stringy object.
 
 ```php
-s('fòôbàř', 'UTF-8')->getEncoding(); // 'UTF-8'
+s('fòôbàř')->getEncoding(); // 'UTF-8'
 ```
 
 ##### hasLowerCase()
@@ -509,6 +514,14 @@ otherwise.
 s('دانيال1')->isAlphanumeric(); // true
 ```
 
+##### isBase64()
+
+Returns true if the string is base64 encoded, false otherwise.
+
+```php
+s('Zm9vYmFy')->isBase64(); // true
+```
+
 ##### isBlank()
 
 Returns true if the string contains only whitespace chars, false otherwise.
@@ -527,7 +540,9 @@ s('A102F')->isHexadecimal(); // true
 
 ##### isJson()
 
-Returns true if the string is JSON, false otherwise.
+Returns true if the string is JSON, false otherwise. Unlike json_decode
+in PHP 5.x, this method is consistent with PHP 7 and other JSON parsers,
+in that an empty string is not considered valid JSON.
 
 ```php
 s('{"foo":"bar"}')->isJson(); // true
@@ -671,7 +686,8 @@ to a lack of support in the bundled version of Oniguruma in PHP < 5.6,
 and current versions of HHVM (3.8 and below).
 
 ```php
-s('fòô ')->regexReplace('f[òô]+\s', 'bàř', 'msr'); // 'bàř'
+s('fòô ')->regexReplace('f[òô]+\s', 'bàř'); // 'bàř'
+s('fò')->regexReplace('(ò)', '\\1ô'); // 'fòô'
 ```
 
 ##### removeLeft(string $substring)

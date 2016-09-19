@@ -17,10 +17,10 @@ class FilterStringsTwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('*_string', [$this, 'stringFilter']),
+            new \Twig_SimpleFilter('*_string', [$this, 'stringFilter'], array('is_variadic' => true)),
         ];
     }
-    public function stringFilter($action, $data)
+    public function stringFilter($action, $data, array $options = array())
     {
         if($action==null){return;};
         $customManipulators = ["cosgrove"];//plans for custom manipulator functions
@@ -29,7 +29,7 @@ class FilterStringsTwigExtension extends \Twig_Extension
                 //Plans for custom manipulator functions
                 break;
             default:
-                return Stringy::create($data)->{$action}();
+                return call_user_func_array(array(Stringy::create($data), $action),$options);
         }
     }
 }

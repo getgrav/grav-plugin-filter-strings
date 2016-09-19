@@ -1,3 +1,24 @@
+### 2.3.2 (2016-05-02)
+
+* Improve support without mbstring
+
+### 2.3.1 (2016-03-21)
+
+* Always use root namespace for mbstring functions
+
+### 2.3.0 (2016-03-19)
+
+* Add Persian characters in Stringy::charsArray()
+* Use symfony/polyfill-mbstring to avoid dependency on ext-mbstring
+
+### 2.2.0 (2015-12-20)
+
+* isJSON now returns false for empty strings
+* Update for German umlaut transformation
+* Use reflection to generate method list for StaticStringy
+* Added isBase64 method
+* Improved toAscii char coverage
+
 ### 2.1.0 (2015-09-02)
 
 * Added simplified StaticStringy class
